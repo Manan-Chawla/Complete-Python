@@ -117,8 +117,26 @@
 
 
 # program to check whether number is prime or not
-a=4
-if a%1==0 and a%a==0:
-    print("Given number is prime number")
-else:
-    print("Given number is not prime number")
+# a=int(input("Enter number to check  : "))
+# if a==1:
+#     print("It is a not a prime number ")
+# if a>1:
+#     for i in range(2,a):
+#      if a%i==0:
+#         print("it is not a prime number")
+#         break
+#     else:
+#         print("It is a prime number")
+
+
+
+# create a program to genrate random number
+# import random 
+# a= random.randint(0,100)
+# usernum=int(input("Enter your number to guess whether you are lucky or not : "))
+# if usernum==a:
+#     print("you are lucky pal")
+# else:
+#     print("Sorry better luck next time")
+# print(f"Number was {a}")
+        
