@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Header</title>
+    <style>
+      nav {
+        display: flexbox;
+      }
+      ul {
+        list-style-type: none; /* Remove bullet points */
+        text-align: center; /* Center the links */
+        display: flex; /* Use flexbox to align items horizontally */
+        justify-content: center;
+      }
+      li {
+        margin: 0 15px;
+      }
+
+      .nav-link {
+        color: white; /* White text */
+        text-decoration: none; /* Remove underline */
+        padding: 10px 15px; /* Padding inside the clickable area */
+        display: block; /* Make the whole link area clickable */
+        transition: background-color 0.3s;
+      }
+
+      .active{
+        background-color: red;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <!-- {{request.path}} -->
+        <li class="nav-link" ><a href="/power">HOME</a></li>
+        <li class="nav-link"><a href="{% url 'about' %}">ABOUT</a></li>
+        <li class="nav-link"><a href="/service">SERVICE</a></li>
+        <li class="nav-link" ><a href="/contact-us" class="{%if request.path == '/contact-us/' %} active {% endif %}">CONTACT</a></li>
+      </ul>
+    </nav>
+  </body>
+</html>
