@@ -1,0 +1,42 @@
+
+<html>
+<head>
+    <title>{{title}}</title>
+</head>
+<body>
+    <h1>Welcome to our home page</h1>
+    <p>{{p}}</p>
+    {%for n in clist %}
+    <div>
+        {{n}}
+    </div>
+    {% endfor %}
+
+   
+    <table border="1px" cellpadding="10">
+        <tr>
+            <th>Name : </th>
+            <th>Age : </th>
+        </tr>
+
+        {%for i in student%}
+        <tr>
+            <td>{{i.name}}</td>
+            <td>{{i.age}}</td>
+        </tr>
+        {%endfor%}
+    </table>
+
+    {% if number|length > 0 %}
+
+    {%for n in number%}
+    {% if n > 20%}
+      <b>{{n}}</b>
+    {% endif %}
+    {%endfor%}
+
+    {%else%}
+      <p>no data found</p>
+    {% endif %}
+</body>
+</html>

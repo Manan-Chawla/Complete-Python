@@ -1,0 +1,92 @@
+Django Framework
+A framework which is for web dev in python.
+A framework is a particular set of rules, ideas or beliefs which you use in order to deal with problem
+or to decide what to do.
+Django basically a high level web app framework for python, it enables rapid development of web application.
+It's open source which means we can use it free of cost and for installing we use pip ,It follow the model view template.
+
+
+Reason of using django :-
+ 1.fast and simple
+ 2.secure
+ 3.suits any web app project
+ 4.well established
+ 5.built in authentication and authority
+
+Companies which use django :-
+ 1.youtube
+ 2.insta 
+ 3.spotify
+ 4.disqus
+
+Prerequisite for Django :-
+ 1.html
+ 2.css
+ 3.js
+ 4.python
+
+
+Django model view template :-
+Model - data you want to present, usually data from a db
+View - a request handler that return relevant template and content
+       based on request from user
+template - a text file like and html file containing layout of web page
+           with logic how to display data
+urls - it's a way to provide navigation around different page in website
+       when user request URL, django decide which view it will send it to.
+
+
+flow char of mvt :-
+user --> django ---> URL ---> view -1. model -2. template
+
+
+Installing Django :-
+Step1 :- we need to create a virtual enviorment
+         open terminal and write :-
+           python -m venv venv 
+Step 2:- This will create a virtual enviorment named 'venv'
+         Now move within the venv
+         cd venv
+         and write :- 
+         .\Scripts\Activate
+         this will activate the venv and after activating
+         write :- pip install django
+         And to check version write :- 
+         django-admin --version
+
+
+
+
+#Setup a newproject in django:-
+for this we need to start our venv by running command :- .\Scripts\Activate within our venv folder
+then write code :- django-admin startproject mysite
+This will create a folder named mysite inside that u will get a folder same name which contains
+file as follows:-
+__init__.py 
+asgi.py
+settings.py
+urls.py
+manage.py
+
+
+# Starting wed dev server in Django
+Within our dev folder we get a file named 'manage.py' which is
+responsible to start our developement server.
+To start our server write following code in terminal :-
+python manage.py runserver
+This will provide you a localhost link like :- http://127.0.0.1:8000/
+
+** let's say we are working on various project at a time and we start server all togther
+   then port can be a problem so for that we can use custom port number by writing port 
+   number after runserver like this:-
+   python manage.py runserver 4444
+
+
+# Project Structure in Django Project
+ 1. to run project we use manage.py file.
+ 2. django use a default database as soon we migrate through project named as 'dq.sqlite3'.
+ 3. we always get a subfolder with same name of our django project which contains app files and
+    it also refer as app folder.
+ 4. let's create a templates folder which will contains all html file for future use.
+ 5. also we need to create a folder static name which contains css, js and images for our app.
+ 6. also create a media name folder which contains dynamic content

@@ -1,0 +1,48 @@
+TITLE :  ROADMAP FOR TRAINEE JOB (FOCUSING MNC ONLY)
+DAY 1 TO 8  
+HTML   CSS   JS
+1. Review HTML tag and attribute
+2. Review CSS and it's properties, selector and value
+3. Review JS with ES6 
+4. Build a website ( without any AI help )
+
+
+DAY 9 TO 15
+REACT
+1. Basic of React
+2. Basic of React Hooks
+3. Router and Router DOM
+4. Build a react based project
+
+
+DAY 16 TO 23
+NODE EXPRESS MONGO DB
+1. Basic of NPX and NPM
+2. API (Soapful and RestAPI)
+3. CRUD operation and connecting DB with code
+4. Create a own restful API 
+
+
+DAY 24 TO 30
+1. Create a full stack project
+2. Manage Deployment ( backend and frontend both )
+3. Complete documentation
+4. upload on github make it open source
+5. create a community on Hashnode and Dev
+6. Apply in companies for role of trainee 
+
+
+
+
+PROJECT WE NEED FOR BETTER PROFILE ON GITHUB 
+1. A STATIC WEBSITE
+2. A RESPONSIVE AND DYNAMIC WEBSITE 
+3. A PERSONAL RESTFUL API
+4. A CONSOLE BASED ON MONGO DB
+5. A REACT APP 
+
+
+HACKATHON OR GSOC 
+---> BASED WAYS TO GET A OPPORTUNITY IN MNC
+---> HASHNODE / DEV COMMUNITY / DEVELOPER GROUP BY GOOGLE (REQUIRE A PROJECT TO GET IN [WE HAVE THAT ALREADY])
+---> LINEKDIN JUST A WAY TO EXPRESS WORK (BUT IT'S VITAL TO CREATE A BETTER TEAM FOR HACKATHON)

@@ -1,0 +1,14 @@
+.headings{
+    color: white;
+    background-color: blue;
+    text-align: center;
+    align-items: center;
+    font-family: gill sans;
+    font-weight: bold;
+}
+
+.mains{
+    width:800px;
+    height:500px;
+    display: flexbox;
+}
