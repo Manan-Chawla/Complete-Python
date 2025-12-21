@@ -4,9 +4,9 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.output_parsers import StrOutputParser
 
 # 🔑 API keys (hardcoded)
-GOOGLE_API_KEY = "AIzaSyBAZIiQ6ODY5VqW5QN4TC69U43SiJzy2r4"
-LANGCHAIN_API_KEY = "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"
-LANGCHAIN_PROJECT = "genaitut"
+GOOGLE_API_KEY = ""
+LANGCHAIN_API_KEY = ""
+LANGCHAIN_PROJECT = ""
 
 # ✅ Initialize Gemini model with API key
 llm = ChatGoogleGenerativeAI(
