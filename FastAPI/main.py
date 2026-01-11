@@ -180,11 +180,16 @@ text_posts = {
     }
 }
 
+
+# to get post list (complete)
 @app.get("/posts")
-def get_post():
+def get_post(limit:int=None):
+    if limit:
+        return list(text_posts.values())[:limit]
     return text_posts
+# here we can set limit also
 
-
+# to get post single (on basis of ID)
 @app.get("/posts/{id}")
 def get_post(id:int):
     if id not in text_posts:
