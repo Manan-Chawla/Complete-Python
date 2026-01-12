@@ -91,6 +91,24 @@ It will show case us data in this format
 }
 
 
+# Schemas or Class
+When we create a class which generally use in POST method, it refer as schema.
+More like a object which allow us to post data into our API.
+There are two ways to create schemas
+1. Within same file or python :- 
+Just create a class by importing BaseModel from pydantic , and use it.
+2. Creating another file :-
+STEPS -->
+1. Create a new file named it as schemas.py
+2. import --> from pydantic import BaseModel 
+Ex of class -->
+class Student(BaseModel):
+      studentid : int
+      studentname : str
+Now to use it in our main file of python we need to import this class like this -->
+from schemas import Student 
+
+
 
 # POST METHOD URLS
 In FastAPI, POST body = Pydantic model, is very important
@@ -152,6 +170,152 @@ But there are some problems with response model such as :-
 *  swagger not strict 
 
 ex:- 
+class StudentResponse(BaseModel):
+    message:str
+    student: StudentData
+@app.post("/student", response_model=StudentResponse, status_code=201)
+def students(student: StudentData):
+    return {
+        "message": "Student created successfully",
+        "student": student
+    }
+
+
+# Creating DATAABSE CONNECTION --> 
+1. install sqlalchemy --> pip install sqlalchemy 
+2. create files --> db.py , models.py and schemas.py (if not exist early)
+3. Now before configure our connection with database using sqlalchmey we need to understand some basic:-
+** Important Library and function -->
+
+a. create_engine 
+-> it creates a connection to the database
+-> it is more like to define where is my database
+
+b. sessionmaker
+-> it use to create database session
+-> session is more like a conversation with database but only once
+-> use because every request with database require sessions
+-> it helps to avoid conflicts and data corruption
+
+c. declarative_base
+-> it is the base class of ORM Models
+-> sqlalchemy need this in order to map the table
+
+d. DATABASE_URL="value"
+-> tells which database need to connect with
+-> generally for local file or connection
+
+e. Class Config :
+       orm_mode=True
+-> It returns orm objects
+-> pydantic expects dict by default
+-> it allow converstation between model
+-> without this whole model will fails
+
+f. BaseModel :
+-> use for data validation
+-> handles request and response data
+-> accept data from user
+-> sending clean data to frontend part
+
+g. models.Base.metadata.create_all(bind=engine)
+-> it creates tables automatically
+-> reads models
+-> executes sql
+-> use in development phase 
+
+h. db=SessionLocal()
+   yield db
+   db.close()
+-> it opens session
+-> yields to api
+-> close session safely
+-> it prevent memory leaks, locked db and also doesn't allow to crash the db
+
+i. db: Session = Depends(get_db)
+-> it injects db session into route
+-> one session per request
+
+4. now let's start on creating db->
+A. open models.py and write following code :-
+from sqlalchemy import Column, Integer, String
+from db import Base
+
+class CollegeStudent(Base):
+    __tablename__ = "students"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
+    age = Column(Integer)
+
+B. open schemas.py and write code :- 
+from pydantic import BaseModel  
+class PostCreate(BaseModel):
+    title:str
+    content:str
+    
+    
+class StudentCreate(BaseModel):
+    name:str
+    age:int
+
+class StudentRepsonse(BaseModel):
+    id:int
+    name:str
+    age:int
+    
+    class Config:
+        orm_mode=True 
+
+C. Open db.py and write code :- 
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
+
+DATABASE_URL = "sqlite:///./students.db"
+
+engine = create_engine(
+    DATABASE_URL,
+    connect_args={"check_same_thread": False}
+)
+
+SessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine
+)
+
+Base = declarative_base()
+
+D. Open main.py and write following code :- 
+# Connecting database 
+import models
+from db import engine,SessionLocal
+import schemas
+from fastapi import FastAPI, Depends
+from sqlalchemy.orm import Session
+
+models.Base.metadata.create_all(bind=engine)
+
+app=FastAPI()
+
+# getting dependency
+def get_db():
+    db=SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+@app.post("/students",response_model=schemas.StudentRepsonse)
+def create_student(student: schemas.StudentCreate, db: Session = Depends(get_db)):
+    db_student = models.CollegeStudent(
+        name=student.name,
+        age=student.age
+    )
+    db.add(db_student)
+    db.commit()
+    db.refresh(db_student)
+    return db_student
 
 
 # Using swagger's doc for testing api
