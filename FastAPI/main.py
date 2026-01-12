@@ -1,6 +1,7 @@
 from fastapi import FastAPI,HTTPException
 from pydantic import BaseModel,Field 
-
+from schemas import PostCreate
+# importing schemas from another file
 app=FastAPI()
 
 @app.get("/")
@@ -195,3 +196,50 @@ def get_post(id:int):
     if id not in text_posts:
         raise HTTPException(status_code=404,details="Post not found")
     return text_posts.get(id)
+
+# to create post
+@app.post("/posts")
+def create_post(post:PostCreate):
+    new_post={
+        "title":post.title,
+        "content":post.content
+    }
+    text_posts[max(text_posts.keys())+1]=new_post
+    return new_post
+
+
+
+
+
+
+
+
+# Connecting database 
+import models
+from db import engine,SessionLocal
+import schemas
+from fastapi import FastAPI, Depends
+from sqlalchemy.orm import Session
+
+models.Base.metadata.create_all(bind=engine)
+
+app=FastAPI()
+
+# getting dependency
+def get_db():
+    db=SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+@app.post("/students",response_model=schemas.StudentRepsonse)
+def create_student(student: schemas.StudentCreate, db: Session = Depends(get_db)):
+    db_student = models.CollegeStudent(
+        name=student.name,
+        age=student.age
+    )
+    db.add(db_student)
+    db.commit()
+    db.refresh(db_student)
+    return db_student
