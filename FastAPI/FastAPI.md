@@ -233,3 +233,42 @@ Then click on Execute, you will see Response body like this:
 * Click on GET which is default route
 * Click on Execute button
 * It will show case what we passed in that function as response body with code 200
+
+
+
+
+
+## Passing an html page in FastAPI
+1. first we need to create a 'template' folder within our main folder
+2. Create a 'imdex.html' file within
+3. write down following code :-
+   ```
+<html>
+<head>
+    <title>Item Detail</title>
+</head>
+<body>
+    <h1>Item ID: {{ id }}</h1>
+    <p>Rendered via Jinja2!</p>
+</body>
+</html>
+   ```
+4. Now import following packages in our main.py
+**from fastapi.templating import Jinja2Templates**, 
+**from fastapi.responses import HTMLResponse**, 
+**from fastapi import Request**
+5. Now write down the route or url for it
+```
+# jinja templates
+templates=Jinja2Templates(directory="templates")
+```
+@app.get("/i/{id}", response_class=HTMLResponse)
+async def read_item(request: Request, id: str):
+    return templates.TemplateResponse(
+        request=request, name="index.html", context={"id": id}
+    )
+```
+6. Now to run this on browser use this :-
+```
+http://localhost:8000/i/1
+```
