@@ -274,3 +274,63 @@ async def read_item(request: Request, id: str):
 ```
 http://localhost:8000/i/1
 ```
+
+--
+
+# Connecting POST AND GET METHOD
+
+## POST METHOD
+POST method is use for sending data to the server. To implement POST method, we need to use `@app.post()` decorator.
+Also we have to user pydantic to define the data model.
+
+First we are going to define the data model.
+```
+class User(BaseModel):
+    name:str
+    age:int
+    email:str
+```
+Now, we have to create a POST route.
+```
+@app.post("/adduser")
+def adduser(user: User):
+    users_db[user.name.lower()] = user
+    return {"message": f"User {user.name} added successfully!"}
+```
+
+Now let's create a GET route for this POST route 
+```
+@app.get("/u/{name}", response_class=HTMLResponse)
+async def read_item(request: Request, name: str):
+    user_data = users_db.get(name.lower())
+
+    if not user_data:
+        raise HTTPException(status_code=404, detail="User nahi mila!")
+
+    return templates.TemplateResponse(
+        "user.html", 
+        {
+            "request": request, 
+            "name": user_data["name"], 
+            "age": user_data["age"], 
+            "email": user_data["email"]
+        }
+    )
+```
+
+Now, go to the template folder and create a file name "user.html"
+Write following code there
+```
+<!DOCTYPE html>
+<html>
+<body>
+    <div style="border: 2px solid black; padding: 15px; width: 250px;">
+        <h2>User Info</h2>
+        <p><strong style="font-size: 16px;color:red">Name:</strong> {{ name }}</p>
+        <p><strong style="font-size: 16px;color:red">Age:</strong> {{ age }}</p>
+        <p><strong style="font-size: 16px;color:red">Email:</strong> {{ email }}</p>
+    </div>
+</body>
+</html>
+```
+
